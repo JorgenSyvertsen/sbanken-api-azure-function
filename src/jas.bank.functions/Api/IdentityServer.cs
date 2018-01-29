@@ -13,13 +13,13 @@ namespace jas.bank.functions.api
             var bytes = System.Text.Encoding.UTF8.GetBytes(credentials);
             var encodedText = System.Convert.ToBase64String(bytes);
 
-            using (WebClient wc = new WebClient())
+            using (var wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded; charset=utf-8";
                 wc.Headers[HttpRequestHeader.Authorization] = $"Basic {encodedText}";
                 wc.Headers[HttpRequestHeader.Accept] = "application/json";
-                string HtmlResult = await wc.UploadStringTaskAsync(identityServerUrl, "grant_type=client_credentials");
-                return JsonConvert.DeserializeObject<IdentityServerToken>(HtmlResult);
+                var htmlResult = await wc.UploadStringTaskAsync(identityServerUrl, "grant_type=client_credentials");
+                return JsonConvert.DeserializeObject<IdentityServerToken>(htmlResult);
             }
         }
     }

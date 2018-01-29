@@ -40,11 +40,11 @@ namespace jas.bank.functions.api
             var accountUrl = $"https://{_hostName}/Bank/Api/v1/Accounts/{_userId}/{accountNumber}";
             var token = await IdentityServer.GetToken(_userId, _clientId, _secret, _hostName);
 
-            using (WebClient wc = new WebClient())
+            using (var wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.Authorization] = $"Bearer {token.access_token}";
                 wc.Headers[HttpRequestHeader.Accept] = "application/json";
-                string result = await wc.DownloadStringTaskAsync(accountUrl);
+                var result = await wc.DownloadStringTaskAsync(accountUrl);
                 var list = JsonConvert.DeserializeObject<ItemResult<Account>>(result);
                 return list.item;
             }
@@ -58,12 +58,12 @@ namespace jas.bank.functions.api
             var json = JsonConvert.SerializeObject(request);
             var encodedValue = System.Text.Encoding.UTF8.GetBytes(json);
 
-            using (WebClient wc = new WebClient())
+            using (var wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.Authorization] = $"Bearer {token.access_token}";
                 wc.Headers[HttpRequestHeader.Accept] = "application/json";
                 wc.Headers[HttpRequestHeader.ContentType] = "application/json";
-                var result = await wc.UploadDataTaskAsync(transferUrl, encodedValue);
+                await wc.UploadDataTaskAsync(transferUrl, encodedValue);
             }
 
             var account = await GetAccount(request.fromAccount);

@@ -2,6 +2,7 @@ using System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using jas.bank.functions.api;
+using jas.bank.functions.model;
 
 namespace jas.bank.functions
 {

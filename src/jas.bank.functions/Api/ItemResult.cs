@@ -5,6 +5,7 @@
         public string errorType { get; set; }
         public bool isError { get; set; }
         public string errorMessage { get; set; }
+        public string traceId { get; set; }
     }
 
     public class ItemResult<T> : ItemResult
@@ -14,6 +15,7 @@
 
     public class ListResult<T> : ItemResult
     {
+        public int availableItems { get; set; }
         public System.Collections.Generic.List<T> items { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace jas.bank.functions.api
+﻿namespace jas.bank.functions.model
 {
     public class TransferRequest
     {
